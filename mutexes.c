@@ -1,6 +1,8 @@
 //lets check whether it makes sense to use semaphore and mutex together instead of just using mutex
 //so, for macos, unnamed semaphores of type sem_t have been deprecated and hence i havent used sem_init,sem_destroy, insetad i have used macos'GCD (Grand Central Dispatch) semaphores
-
+//Shared memory:
+//unnamed sem :Threads only (in process memory)
+//named sem:Threads & processes
 // also, w and w/o semaphores output of the code :
 //n=5,m=2
 //with semaphore + mutex:
