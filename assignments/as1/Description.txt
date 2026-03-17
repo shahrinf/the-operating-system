@@ -1,0 +1,62 @@
+Implementation of a typical program involving file related functions (system calls)
+  
+Management of Student data in terms of "data" file and "index file"
+
+In this assignment you are required to manage (add, delete, search, modify, compact, etc., as explained later) student data stored in files. Information about a single student can be accommodated in the following C language structure
+struct student {
+           int roll; /* storing the roll number of the student */
+           char *fname; /* storing the first name of the student */
+           char *mname; /* storing the middle name of the student */
+           char *sname; /* storing the surname of the student */
+           char *desc /* storing description of the student */
+};
+storing a student record having following attributes (RDBMS style):
+roll: integer
+fname: varchar[50]
+mname: varchar[50]
+sname: varchar[50]
+desc: blob
+  
+Let there be a file "student.data" which contains records of a number of students as shown below.
+
+student.data file
+  
+| File Contents                  | Remarks             |
+|--------------------------------|---------------------|
+| `<number of records, say n>`   | `sizeof(int)` bytes |
+| Student Record 1               | some bytes          |
+| Student Record 2               | some bytes          |
+| ...                            | ...                 |
+| Student Record n               | some bytes          |
+
+
+Please note that different records (having different students' complete information) would require different amount of space (bytes) in this file.
+
+Another file "student.index" stores the position of the student records as they are present in "student.data" file. Contents of "student.index" file are depicted in the following table.
+
+student.index file
+| File Contents                                               | Remarks               |
+|------------------------------------------------------------|-----------------------|
+| `<number of records, say n>`                                | `sizeof(int)` bytes   |
+| Offset of Student Record 1 (in `student.data` file)         | `sizeof(off_t)` bytes |
+| Offset of Student Record 2                                  | `sizeof(off_t)` bytes |
+| ...                                                        | ...                   |
+| Offset of Student Record n                                  | `sizeof(off_t)` bytes |
+
+
+Please note that the records in "student.index" file are of same size (each of sizeof(off_t) bytes).
+
+Hence the offset of the ith student record (in "student.data" file) is available at sizeof(int) + (i-1)*sizeof(off_t) position (offset) in "student.index" file.
+
+You have to write functions to support operations like
+Addition of a student record to
+Deletion of a student record
+Searching of a student record
+Modifying a student record
+Compaction of student.data and student.index files. [Please note that deletions of student records may produces holes in these two files. Compaction removes those holes.
+Please make your own assumptions wrt the signature (name, parameters, return type) of these functions and how exactly they should perform their jobs.
+
+Write a main function to demonstrate that your functions are working as desied.
+
+
+
